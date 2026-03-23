@@ -1,0 +1,18 @@
+name: Keep Spam Mail Classifier Streamlit App Awake
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wake app
+        run: |
+          for i in {1..3}; do
+            curl -s https://spammailclassifier8080.streamlit.app/ && break
+            sleep 10
+          done
